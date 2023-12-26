@@ -4,6 +4,8 @@ import com.beidao.mall.model.dto.system.SysRoleDto;
 import com.beidao.mall.model.entity.system.SysRole;
 import com.github.pagehelper.PageInfo;
 
+import java.util.Map;
+
 public interface SysRoleService {
 
     //角色列表方法，分页查询
@@ -18,4 +20,7 @@ public interface SysRoleService {
 
     //4.角色删除的方法-逻辑删除
     void deleteById(Long roleId);
+
+    //查询所有角色
+    Map<String, Object> findAll(Long userId);
 }

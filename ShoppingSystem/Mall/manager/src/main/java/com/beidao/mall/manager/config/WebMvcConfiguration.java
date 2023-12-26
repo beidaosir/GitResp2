@@ -20,7 +20,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private UserProperties userProperties;
 
 
-    //拦截器注册
+   //拦截器注册
     @Override
     public void addInterceptors(InterceptorRegistry registry){
 

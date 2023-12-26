@@ -15,7 +15,8 @@ public class GlobalExceptionHandler {
     //全局异常处理
     @ExceptionHandler(Exception.class) //指定异常执行类型
     @ResponseBody //@ResponseBody 是 @RestController(返回json数据格式) 中注解
-    public Result error(){
+    public Result error(Exception e){
+        e.printStackTrace();
         return Result.build(null , ResultCodeEnum.SYSTEM_ERROR) ; //统一数据格式
     }
 

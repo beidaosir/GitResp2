@@ -11,6 +11,15 @@
     </sql>
 
 
+    <!--   //查询所有角色  -->
+    <select id="findAll" resultMap="sysRoleMap">
+        select <include refid="columns"/>
+        from sys_role where is_deleted =0
+
+    </select>
+
+
+
     <!--  //4.角色删除的方法-逻辑删除   逻辑删除的本质是修改操作 -->
     <update id="delete">
         update sys_role set is_deleted = 1 where id = #{roleId}

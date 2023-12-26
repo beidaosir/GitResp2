@@ -1,9 +1,12 @@
 package com.beidao.mall.manager.service;
 
 
+import com.beidao.mall.model.dto.system.AssginRoleDto;
 import com.beidao.mall.model.dto.system.LoginDto;
+import com.beidao.mall.model.dto.system.SysUserDto;
 import com.beidao.mall.model.entity.system.SysUser;
 import com.beidao.mall.model.vo.system.LoginVo;
+import com.github.pagehelper.PageInfo;
 
 public interface SysUserService {
 
@@ -16,4 +19,19 @@ public interface SysUserService {
 
     //用户退出
     void logout(String token);
+
+    //1、用户条件分页查询接口
+    PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize, SysUserDto sysUserDto);
+
+    //2、用户添加
+    void saveSysUser(SysUser sysUser);
+
+    //3、用户修改
+    void updateSysUser(SysUser sysUser);
+
+    //4、用户删除
+    void deleteById(Long userId);
+
+    //用户分配角色
+    void doAssign(AssginRoleDto assginRoleDto);
 }

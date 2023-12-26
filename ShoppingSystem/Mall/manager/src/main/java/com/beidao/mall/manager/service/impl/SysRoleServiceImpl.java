@@ -1,6 +1,7 @@
 package com.beidao.mall.manager.service.impl;
 
 import com.beidao.mall.manager.mapper.SysRoleMapper;
+import com.beidao.mall.manager.mapper.SysRoleUserMapper;
 import com.beidao.mall.manager.service.SysRoleService;
 import com.beidao.mall.model.dto.system.SysRoleDto;
 import com.beidao.mall.model.entity.system.SysRole;
@@ -9,13 +10,18 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysRoleUserMapper sysRoleUserMapper;
 
     //角色列表方法，分页查询
     @Override
@@ -49,6 +55,24 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void deleteById(Long roleId) {
         sysRoleMapper.delete(roleId);
+    }
+
+    //查询所有角色
+    @Override
+    public Map<String, Object> findAll(Long userId) {
+        //1、查询所有角色
+        List<SysRole> roleList = sysRoleMapper.findAll();
+        
+        //2、分配过的角色列表
+        //根据用户id userId 查询分配过的角色id
+        List<Long> roleIds = sysRoleUserMapper.selectRoleIdsByUserId(userId);
+
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("allRolesList",roleList);
+        map.put("sysUserRoles",roleIds);
+
+        return map;
     }
 
 
