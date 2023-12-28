@@ -24,7 +24,7 @@ public class FileUploadController {
         //2、调用service中的方法上传，  返回minio路径
         String url = fileUploadService.upload(file);
 
-        return Result.build(null, ResultCodeEnum.SUCCESS);
+        return Result.build(url, ResultCodeEnum.SUCCESS);
     }
 
 

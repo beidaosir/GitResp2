@@ -1,6 +1,7 @@
 package com.beidao.mall.manager.service;
 
 import com.beidao.mall.model.entity.system.SysMenu;
+import com.beidao.mall.model.vo.system.SysMenuVo;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface SysMenuService {
 
     //菜单删除
     void removeById(Long id);
+
+    //查询用户可以操作的菜单
+    List<SysMenuVo> findMenusByUserId();
 }

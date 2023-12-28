@@ -1,5 +1,6 @@
 package com.beidao.mall.manager.controller;
 
+import com.beidao.mall.manager.service.SysMenuService;
 import com.beidao.mall.manager.service.SysUserService;
 import com.beidao.mall.manager.service.ValidateCodeService;
 import com.beidao.mall.model.dto.system.LoginDto;
@@ -7,11 +8,14 @@ import com.beidao.mall.model.entity.system.SysUser;
 import com.beidao.mall.model.vo.common.Result;
 import com.beidao.mall.model.vo.common.ResultCodeEnum;
 import com.beidao.mall.model.vo.system.LoginVo;
+import com.beidao.mall.model.vo.system.SysMenuVo;
 import com.beidao.mall.model.vo.system.ValidateCodeVo;
 import com.beidao.mall.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name="用户接口")
 @RestController //返回json数据格式
@@ -23,6 +27,10 @@ public class IndexController {
 
     @Autowired
     private ValidateCodeService validateCodeService;  //验证码注入
+
+    @Autowired
+    private SysMenuService sysMenuService;
+
 
     //用户登录
     //所有方法返回result对象  让所有接口返回相同数据
@@ -70,6 +78,14 @@ public class IndexController {
     public Result logout(@RequestHeader(value = "token") String token) {
         sysUserService.logout(token);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
+    }
+
+
+    //查询用户可以操作的菜单
+    @GetMapping("/menus")
+    public Result menus(){
+        List<SysMenuVo> list = sysMenuService.findMenusByUserId();
+        return Result.build(list , ResultCodeEnum.SUCCESS) ;
     }
 
 

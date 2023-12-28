@@ -9,7 +9,7 @@ public class MinioProperties {
 
     private String endpointUrl;
     private String accessKey;
-    private String secretKey;
+    private String secreKey;
     private String bucketName;
 
 }

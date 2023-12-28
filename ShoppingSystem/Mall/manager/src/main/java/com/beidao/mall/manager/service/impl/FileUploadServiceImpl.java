@@ -5,7 +5,10 @@ import com.beidao.mall.common.exception.BeidaoException;
 import com.beidao.mall.manager.properties.MinioProperties;
 import com.beidao.mall.manager.service.FileUploadService;
 import com.beidao.mall.model.vo.common.ResultCodeEnum;
-import io.minio.*;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +31,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             MinioClient minioClient =
                     MinioClient.builder()
                             .endpoint(minioProperties.getEndpointUrl())
-                            .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
+                            .credentials(minioProperties.getAccessKey(), minioProperties.getSecreKey())
                             .build();
 
             // Make 'asiatrip' bucket if not exist.
