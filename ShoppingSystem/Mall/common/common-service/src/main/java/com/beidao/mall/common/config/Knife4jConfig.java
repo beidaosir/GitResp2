@@ -11,6 +11,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Knife4jConfig {
 
+    //  在service-user启动类中加入 @ComponentScan(basePackages = "com.beidao.mall")
+    @Bean
+    public GroupedOpenApi userApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("user-api")         // 为接口分组  分组名称
+                .pathsToMatch("/api/**")  // 接口请求路径规则  在管理员系统中都用admin开头
+                .build();
+    }
+
+
     //在启动器中加入 @ComponentScan(basePackages = {"com.beidao.mall"}) //确保所有这个包下的内容能够被扫描到
     //保证配置生效
     @Bean

@@ -5,10 +5,21 @@
     <resultMap id="categoryBrandMap" type="com.beidao.mall.model.entity.product.CategoryBrand" autoMapping="true">
     </resultMap>
 
+
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
         id,brand_id,category_id,create_time,update_time,is_deleted
     </sql>
+
+
+    <!--  //根据分类id查询对应品牌数据  -->
+    <select id="findBrandByCategoryId" resultType="com.beidao.mall.model.entity.product.Brand">
+        select b.*
+        from category_brand cb
+        left join brand b  on b.id = cb.brand_id
+        where cb.category_id = #{categoryId} and cb.is_deleted = 0
+        order by cb.id desc
+    </select>
 
 
     <!--删除-->

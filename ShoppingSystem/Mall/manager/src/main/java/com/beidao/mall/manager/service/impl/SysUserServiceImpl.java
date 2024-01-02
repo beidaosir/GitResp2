@@ -3,6 +3,7 @@ package com.beidao.mall.manager.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.beidao.mall.common.exception.BeidaoException;
+import com.beidao.mall.common.log.annotation.Log;
 import com.beidao.mall.manager.mapper.SysRoleUserMapper;
 import com.beidao.mall.manager.mapper.SysUserMapper;
 import com.beidao.mall.manager.service.SysUserService;
@@ -17,6 +18,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;
@@ -185,11 +187,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     //用户分配角色
+    @Log(title = "用户分配角色",businessType = 0)
+    @Transactional
     @Override
     public void doAssign(AssginRoleDto assginRoleDto) {
 
         //1、根据userId删除用户之前分配角色数据
         sysRoleUserMapper.deleteByUserId(assginRoleDto.getUserId());
+
+        //为了测试log和事务 模拟异常
+        //int a = 5/0;
+
 
         //2、重新分配资源
         List<Long> roleIdList = assginRoleDto.getRoleIdList();

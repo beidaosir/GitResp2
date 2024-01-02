@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80030
 File Encoding         : 65001
 
-Date: 2023-12-27 09:01:29
+Date: 2023-12-28 22:14:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `brand` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分类品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分类品牌';
 
 -- ----------------------------
 -- Records of brand
@@ -36,6 +36,10 @@ INSERT INTO `brand` VALUES ('1', '小米', 'http://139.198.127.41:9000/sph/20230
 INSERT INTO `brand` VALUES ('2', '华为', 'http://139.198.127.41:9000/sph/20230506/华为.png', '2023-05-06 09:31:19', '2023-05-06 09:31:19', '0');
 INSERT INTO `brand` VALUES ('3', '14', '1', '2023-07-18 16:09:22', '2023-07-18 16:29:18', '1');
 INSERT INTO `brand` VALUES ('4', 'opop4', 'http://127.0.0.1:9000/spzx-bucket/20230718/fc34453767a245b5836d3693dd4a5be2.jpg', '2023-07-18 16:21:12', '2023-07-18 16:29:20', '1');
+INSERT INTO `brand` VALUES ('5', '优衣库', 'http://127.0.0.1:9000/go-mall/20231228/a1450920b1934e0ba486e4cd70282153uniqlo.png', '2023-12-28 02:46:22', '2023-12-28 04:04:37', '0');
+INSERT INTO `brand` VALUES ('6', '香奈儿', 'http://127.0.0.1:9000/go-mall/20231228/db8b5c991f1e43289dab18dc0322069c香奈儿.jpg', '2023-12-28 02:58:24', '2023-12-28 02:58:24', '0');
+INSERT INTO `brand` VALUES ('7', '特步', 'http://127.0.0.1:9000/go-mall/20231228/c8fb6ef3647b464fa7e740e5b0ecdeb307.jpg', '2023-12-28 03:22:52', '2023-12-28 03:22:52', '0');
+INSERT INTO `brand` VALUES ('8', '海尔', 'http://127.0.0.1:9000/go-mall/20231228/28cb049fda364bfd92a83dd9819e6118海尔.jpg', '2023-12-28 04:11:25', '2023-12-28 04:11:43', '1');
 
 -- ----------------------------
 -- Table structure for category
@@ -760,6 +764,9 @@ INSERT INTO `category` VALUES ('700', '西洋打击乐器', 'https://lilishop-os
 INSERT INTO `category` VALUES ('701', '各式乐器配件', 'https://lilishop-oss.oss-cn-beijing.aliyuncs.com/1348576427268399734.png', '692', '1', '0', '2023-05-22 15:31:23', '2023-05-22 15:31:23', '0');
 INSERT INTO `category` VALUES ('702', '电脑音乐', 'https://lilishop-oss.oss-cn-beijing.aliyuncs.com/1348576427268399735.png', '692', '1', '0', '2023-05-22 15:31:23', '2023-05-22 15:31:23', '0');
 INSERT INTO `category` VALUES ('703', '工艺礼品乐器', 'https://lilishop-oss.oss-cn-beijing.aliyuncs.com/1348576427268399736.png', '692', '1', '0', '2023-05-22 15:31:23', '2023-05-22 15:31:23', '0');
+INSERT INTO `category` VALUES ('1000', '手机测试', 'https://lilishop-oss.oss-cn-beijing.aliyuncs.com/1348576427264204943.png', '0', '1', '1', '2023-12-28 01:13:13', '2023-12-28 01:34:29', '0');
+INSERT INTO `category` VALUES ('1001', '华为手机测试', '', '1000', '1', '2', '2023-12-28 01:13:13', '2023-12-28 01:33:30', '0');
+INSERT INTO `category` VALUES ('1002', '华为pro100测试', 'http://139.198.127.41:9000/sph/20230506/华为.png', '1001', '1', '3', '2023-12-28 01:13:13', '2023-12-28 01:32:19', '0');
 
 -- ----------------------------
 -- Table structure for category_brand
@@ -773,7 +780,7 @@ CREATE TABLE `category_brand` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分类品牌';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分类品牌';
 
 -- ----------------------------
 -- Records of category_brand
@@ -784,6 +791,10 @@ INSERT INTO `category_brand` VALUES ('3', '2', '42', '2023-05-25 15:20:21', '202
 INSERT INTO `category_brand` VALUES ('4', '2', '693', '2023-05-30 08:50:37', '2023-05-30 08:51:07', '1');
 INSERT INTO `category_brand` VALUES ('5', '2', '642', '2023-07-18 17:15:08', '2023-07-19 09:07:36', '1');
 INSERT INTO `category_brand` VALUES ('6', '2', '702', '2023-07-19 08:41:40', '2023-07-19 09:06:16', '1');
+INSERT INTO `category_brand` VALUES ('7', '7', '272', '2023-12-28 06:10:24', '2023-12-28 06:22:49', '0');
+INSERT INTO `category_brand` VALUES ('8', '6', '473', '2023-12-28 06:22:23', '2023-12-28 06:22:23', '0');
+INSERT INTO `category_brand` VALUES ('9', '5', '210', '2023-12-28 06:29:20', '2023-12-28 06:29:20', '0');
+INSERT INTO `category_brand` VALUES ('10', '2', '59', '2023-12-28 06:30:10', '2023-12-28 06:30:21', '1');
 
 -- ----------------------------
 -- Table structure for coupon_info
@@ -1297,14 +1308,17 @@ CREATE TABLE `product_spec` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品规格';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品规格';
 
 -- ----------------------------
 -- Records of product_spec
 -- ----------------------------
-INSERT INTO `product_spec` VALUES ('1', '小米手机', '[{\"key\":\"颜色\",\"valueList\":[\"白色\",\"红色\",\"黑色\"]},{\"key\":\"内存\",\"valueList\":[\"8G\",\"18G\"]}]', '2023-05-06 12:40:22', '2023-05-06 12:40:22', '0');
-INSERT INTO `product_spec` VALUES ('2', '笔记本电脑', '[{\"key\":\"内存\",\"valueList\":[\"8G\",\"16G\",\"32G\"]}]', '2023-05-06 12:56:08', '2023-05-25 14:59:59', '0');
-INSERT INTO `product_spec` VALUES ('8', '冰箱', '[{\"key\":\"高度\",\"valueList\":[\"200\"]},{\"key\":\"容积\",\"valueList\":[\"60L\"]}]', '2023-07-19 09:41:16', '2023-07-19 09:41:24', '0');
+INSERT INTO `product_spec` VALUES ('1', '小米手机', '[{\"key\":\"颜色\",\"valueList\":[\"白色\",\"红色\",\"黑色\"]},{\"key\":\"内存\",\"valueList\":[\"8G\",\"18G\"]}]', '2023-05-06 12:40:22', '2023-12-28 08:19:54', '0');
+INSERT INTO `product_spec` VALUES ('2', '笔记本电脑', '[{\"key\":\"内存\",\"valueList\":[\"8G\",\"16G\",\"32G\"]}]', '2023-05-06 12:56:08', '2023-12-28 08:19:56', '0');
+INSERT INTO `product_spec` VALUES ('8', '冰箱', '[{\"key\":\"高度\",\"valueList\":[\"200\"]},{\"key\":\"容积\",\"valueList\":[\"60L\"]}]', '2023-07-19 09:41:16', '2023-12-28 08:19:58', '0');
+INSERT INTO `product_spec` VALUES ('9', '华为手机', '[{\"key\":\"颜色\",\"valueList\":[\"暗夜紫\",\"骑士黑\"]},{\"key\":\"内存\",\"valueList\":[\"256G\",\"512G\"]}]', '2023-12-28 07:56:35', '2023-12-28 07:56:44', '0');
+INSERT INTO `product_spec` VALUES ('10', '钢笔', '[{\"key\":\"颜色\",\"valueList\":[\"白色\",\"黑色\",\"红色\",\"绿色\"]},{\"key\":\"墨汁\",\"valueList\":[\"红色\",\"黑色\",\"蓝色\"]},{\"key\":\"笔尖\",\"valueList\":[\"0.5\",\"1\"]}]', '2023-12-28 07:58:32', '2023-12-28 07:58:32', '0');
+INSERT INTO `product_spec` VALUES ('11', 'test', '[{\"key\":\"尺寸\",\"valueList\":[\"五彩斑斓的黑\"]}]', '2023-12-28 07:59:02', '2023-12-28 07:59:23', '1');
 
 -- ----------------------------
 -- Table structure for product_unit
@@ -1317,7 +1331,7 @@ CREATE TABLE `product_unit` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品单位';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='商品单位';
 
 -- ----------------------------
 -- Records of product_unit
@@ -1327,6 +1341,10 @@ INSERT INTO `product_unit` VALUES ('2', '台', '2023-06-06 09:47:17', '2023-06-0
 INSERT INTO `product_unit` VALUES ('3', '包', '2023-06-06 09:47:21', '2023-06-06 09:47:21', '0');
 INSERT INTO `product_unit` VALUES ('4', '打', '2023-06-06 09:47:26', '2023-06-06 09:47:26', '0');
 INSERT INTO `product_unit` VALUES ('5', '带', '2023-06-06 09:47:43', '2023-06-06 09:47:43', '0');
+INSERT INTO `product_unit` VALUES ('6', '件', '2023-12-28 09:38:45', '2023-12-28 09:38:45', '0');
+INSERT INTO `product_unit` VALUES ('7', '双', '2023-12-28 09:38:56', '2023-12-28 09:38:56', '0');
+INSERT INTO `product_unit` VALUES ('8', '部', '2023-12-28 09:39:21', '2023-12-28 09:39:21', '0');
+INSERT INTO `product_unit` VALUES ('9', '只', '2023-12-28 09:41:12', '2023-12-28 09:41:12', '0');
 
 -- ----------------------------
 -- Table structure for region
@@ -5097,7 +5115,7 @@ CREATE TABLE `sys_menu` (
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`),
   KEY `idx_parent_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -5121,15 +5139,18 @@ INSERT INTO `sys_menu` VALUES ('16', '0', '订单管理', 'order', '5', '1', '20
 INSERT INTO `sys_menu` VALUES ('17', '16', '订单列表', 'orderInfo', '1', '1', '2023-05-15 15:42:43', '2023-05-15 15:52:29', '0');
 INSERT INTO `sys_menu` VALUES ('18', '16', '订单统计', 'orderStatistics', '2', '1', '2023-05-15 15:43:05', '2023-05-30 10:07:50', '0');
 INSERT INTO `sys_menu` VALUES ('21', '1', '操作日志', 'sysOperLog', '4', '1', '2023-06-02 09:04:13', '2023-06-02 09:04:21', '0');
-INSERT INTO `sys_menu` VALUES ('22', '0', 'test', 'test', '1', '1', '2023-07-18 11:36:26', '2023-07-18 13:51:40', '1');
-INSERT INTO `sys_menu` VALUES ('23', '0', '4', '4', '4', '1', '2023-07-18 11:42:58', '2023-07-18 13:51:47', '1');
-INSERT INTO `sys_menu` VALUES ('24', '0', '5', '5', '5', '1', '2023-07-18 11:47:09', '2023-07-18 13:51:50', '1');
-INSERT INTO `sys_menu` VALUES ('25', '1', '7766', '7', '7', '1', '2023-07-18 11:47:19', '2023-07-18 13:51:42', '1');
-INSERT INTO `sys_menu` VALUES ('26', '0', '8', '8', '8', '1', '2023-07-18 11:48:41', '2023-07-18 13:52:05', '1');
-INSERT INTO `sys_menu` VALUES ('27', '26', '888', '8', '8', '1', '2023-07-18 11:48:47', '2023-07-18 13:51:56', '1');
-INSERT INTO `sys_menu` VALUES ('28', '26', '90', '7', '8', '1', '2023-07-18 11:49:01', '2023-07-18 13:52:03', '1');
-INSERT INTO `sys_menu` VALUES ('29', '28', '9999', '88', '8', '1', '2023-07-18 11:49:06', '2023-07-18 13:52:01', '1');
-INSERT INTO `sys_menu` VALUES ('30', '1', '1', '1', '1', '1', '2023-07-18 14:37:13', '2023-07-19 09:08:47', '1');
+INSERT INTO `sys_menu` VALUES ('22', '0', 'test', 'test', '1', '1', '2023-07-18 11:36:26', '2023-12-26 19:10:50', '1');
+INSERT INTO `sys_menu` VALUES ('23', '0', '4', '4', '4', '1', '2023-07-18 11:42:58', '2023-12-26 19:11:10', '1');
+INSERT INTO `sys_menu` VALUES ('24', '0', '5', '5', '5', '1', '2023-07-18 11:47:09', '2023-12-26 19:11:06', '1');
+INSERT INTO `sys_menu` VALUES ('25', '1', '7766', '7', '7', '1', '2023-07-18 11:47:19', '2023-12-26 19:09:14', '1');
+INSERT INTO `sys_menu` VALUES ('26', '0', '8', '8', '8', '1', '2023-07-18 11:48:41', '2023-12-26 19:11:03', '1');
+INSERT INTO `sys_menu` VALUES ('27', '26', '888', '8', '8', '1', '2023-07-18 11:48:47', '2023-12-26 19:10:58', '1');
+INSERT INTO `sys_menu` VALUES ('28', '26', '90', '7', '8', '1', '2023-07-18 11:49:01', '2023-12-26 19:11:01', '1');
+INSERT INTO `sys_menu` VALUES ('29', '28', '9999', '88', '8', '1', '2023-07-18 11:49:06', '2023-12-26 19:10:55', '1');
+INSERT INTO `sys_menu` VALUES ('30', '1', '1', '1', '1', '1', '2023-07-18 14:37:13', '2023-12-26 19:09:19', '1');
+INSERT INTO `sys_menu` VALUES ('31', '1', '测试bug', '测试bug', '7', '1', '2023-12-26 19:09:07', '2023-12-26 19:09:07', '0');
+INSERT INTO `sys_menu` VALUES ('33', '1', '测试bug1', '测试bug1', '6', '1', '2023-12-26 19:13:16', '2023-12-26 19:13:16', '0');
+INSERT INTO `sys_menu` VALUES ('34', '1', '测试bug2', '测试bug2', '7', '1', '2023-12-26 19:34:23', '2023-12-26 19:34:23', '0');
 
 -- ----------------------------
 -- Table structure for sys_oper_log
@@ -5216,25 +5237,11 @@ CREATE TABLE `sys_role_menu` (
   PRIMARY KEY (`id`),
   KEY `idx_role_id` (`role_id`),
   KEY `idx_menu_id` (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb3 COMMENT='角色菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb3 COMMENT='角色菜单';
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('38', '9', '1', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('39', '9', '2', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('40', '9', '3', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('41', '9', '4', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('42', '9', '21', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('43', '9', '5', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('44', '9', '7', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('45', '9', '6', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('46', '9', '8', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('47', '9', '9', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('48', '9', '10', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('49', '9', '11', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('50', '9', '12', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('51', '9', '13', '2023-06-29 11:52:31', '2023-06-29 11:52:31', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('69', '32', '2', '2023-07-18 14:32:43', '2023-07-18 14:32:43', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('70', '32', '3', '2023-07-18 14:32:43', '2023-07-18 14:32:43', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('71', '32', '1', '2023-07-18 14:32:43', '2023-07-18 14:32:43', '0', '1');
@@ -5242,31 +5249,68 @@ INSERT INTO `sys_role_menu` VALUES ('84', '33', '2', '2023-07-18 14:39:13', '202
 INSERT INTO `sys_role_menu` VALUES ('85', '33', '30', '2023-07-18 14:39:13', '2023-07-18 14:39:13', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('86', '33', '3', '2023-07-18 14:39:13', '2023-07-18 14:39:13', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('87', '33', '1', '2023-07-18 14:39:13', '2023-07-18 14:39:13', '0', '1');
-INSERT INTO `sys_role_menu` VALUES ('88', '10', '1', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('89', '10', '2', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('90', '10', '30', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('91', '10', '3', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('92', '10', '4', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('93', '10', '21', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('94', '10', '5', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('95', '10', '7', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('96', '10', '6', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('97', '10', '8', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('98', '10', '9', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('99', '10', '10', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('100', '10', '11', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('101', '10', '12', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('102', '10', '13', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('103', '10', '14', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('104', '10', '15', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('105', '10', '16', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('106', '10', '17', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
-INSERT INTO `sys_role_menu` VALUES ('107', '10', '18', '2023-07-18 14:43:53', '2023-07-18 14:43:53', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('110', '35', '2', '2023-07-19 14:36:38', '2023-07-19 14:36:38', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('111', '35', '1', '2023-07-19 14:36:38', '2023-07-19 14:36:38', '0', '1');
 INSERT INTO `sys_role_menu` VALUES ('116', '40', '2', '2023-12-26 16:54:07', '2023-12-26 16:54:07', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('117', '40', '3', '2023-12-26 16:54:07', '2023-12-26 16:54:07', '0', '0');
 INSERT INTO `sys_role_menu` VALUES ('118', '40', '1', '2023-12-26 16:54:07', '2023-12-26 16:54:07', '0', '1');
+INSERT INTO `sys_role_menu` VALUES ('132', '36', '1', '2023-12-26 19:10:33', '2023-12-26 19:34:23', '0', '1');
+INSERT INTO `sys_role_menu` VALUES ('133', '36', '2', '2023-12-26 19:10:33', '2023-12-26 19:10:33', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('134', '36', '3', '2023-12-26 19:10:33', '2023-12-26 19:10:33', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('135', '36', '4', '2023-12-26 19:10:33', '2023-12-26 19:10:33', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('136', '36', '21', '2023-12-26 19:10:33', '2023-12-26 19:10:33', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('137', '36', '31', '2023-12-26 19:10:33', '2023-12-26 19:10:33', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('138', '37', '1', '2023-12-26 19:33:59', '2023-12-26 19:34:23', '0', '1');
+INSERT INTO `sys_role_menu` VALUES ('139', '37', '2', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('140', '37', '3', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('141', '37', '4', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('142', '37', '21', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('143', '37', '33', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('144', '37', '31', '2023-12-26 19:33:59', '2023-12-26 19:33:59', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('145', '9', '1', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('146', '9', '2', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('147', '9', '3', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('148', '9', '4', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('149', '9', '21', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('150', '9', '33', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('151', '9', '31', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('152', '9', '34', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('153', '9', '5', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('154', '9', '7', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('155', '9', '6', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('156', '9', '8', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('157', '9', '9', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('158', '9', '10', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('159', '9', '11', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('160', '9', '12', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('161', '9', '13', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('162', '9', '14', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('163', '9', '15', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('164', '9', '16', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('165', '9', '17', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('166', '9', '18', '2023-12-27 07:29:35', '2023-12-27 07:29:35', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('167', '10', '1', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('168', '10', '2', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('169', '10', '3', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('170', '10', '4', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('171', '10', '21', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('172', '10', '33', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('173', '10', '31', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('174', '10', '34', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('175', '10', '5', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('176', '10', '7', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('177', '10', '6', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('178', '10', '8', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('179', '10', '9', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('180', '10', '10', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('181', '10', '11', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('182', '10', '12', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('183', '10', '13', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('184', '10', '14', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('185', '10', '15', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('186', '10', '16', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('187', '10', '17', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
+INSERT INTO `sys_role_menu` VALUES ('188', '10', '18', '2023-12-27 07:29:44', '2023-12-27 07:29:44', '0', '0');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -5285,7 +5329,7 @@ CREATE TABLE `sys_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_deleted` tinyint NOT NULL DEFAULT '0' COMMENT '删除标记（0:不可用 1:可用）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sys_user
@@ -5293,7 +5337,12 @@ CREATE TABLE `sys_user` (
 INSERT INTO `sys_user` VALUES ('1', 'admin', '96e79218965eb72c92a549dd5a330112', 'admin', '15011113652', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg', null, '1', '2023-05-04 10:17:18', '2023-05-04 10:37:42', '0');
 INSERT INTO `sys_user` VALUES ('5', 'zhangsan', '96e79218965eb72c92a549dd5a330112', '张三', '13589658968', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg', '', '1', '2023-05-04 10:38:30', '2023-05-04 10:38:56', '0');
 INSERT INTO `sys_user` VALUES ('6', 'test1212', '96e79218965eb72c92a549dd5a330112', 'test12', '15011245632', 'http://139.198.127.41:9000/sph/20230505/default_handsome.jpg', 'test12', '1', '2023-05-05 11:03:48', '2023-07-18 10:28:24', '0');
-INSERT INTO `sys_user` VALUES ('12', 'lucy', '96e79218965eb72c92a549dd5a330112', '1', '1', null, '1', '1', '2023-07-18 14:36:03', '2023-07-18 14:38:23', '0');
+INSERT INTO `sys_user` VALUES ('12', 'lucy', '96e79218965eb72c92a549dd5a330112', '1', '1', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg', '1', '1', '2023-07-18 14:36:03', '2023-12-26 19:07:45', '0');
+INSERT INTO `sys_user` VALUES ('13', 'lisi', '96e79218965eb72c92a549dd5a330112', '李四', '111111', 'https://oss.aliyuncs.com/aliyun_id_photo_bucket/default_handsome.jpg', '11', '1', '2023-12-26 18:58:14', '2023-12-26 19:07:44', '0');
+INSERT INTO `sys_user` VALUES ('14', 'lilei', '96e79218965eb72c92a549dd5a330112', '李雷', '11111', 'http://139.198.127.41:9000/sph/20230505/default_handsome.jpg', '11', '1', '2023-12-26 19:07:18', '2023-12-26 19:07:51', '0');
+INSERT INTO `sys_user` VALUES ('15', 'zhaoliu', '96e79218965eb72c92a549dd5a330112', '赵六', '41231', 'http://127.0.0.1:9000/go-mall/20231227/df29a48a0e624dd1b62fe83ca8be1c85photo.jpg', '3112', '1', '2023-12-27 06:40:31', '2023-12-27 06:44:46', '0');
+INSERT INTO `sys_user` VALUES ('16', 'tom', '96e79218965eb72c92a549dd5a330112', '汤姆', '2414514', 'http://127.0.0.1:9000/go-mall/20231227/9f305aa3ba1349b5af6c2bd0f7e5abd601.jpg', '11231', '1', '2023-12-27 07:15:19', '2023-12-27 07:15:19', '0');
+INSERT INTO `sys_user` VALUES ('17', 'jerry', '96e79218965eb72c92a549dd5a330112', '杰瑞', '63521', 'http://127.0.0.1:9000/go-mall/20231227/afe29e8c5bf64b43a2531dbbd9324a9f97.jpg', '小杰瑞', '1', '2023-12-27 07:16:17', '2023-12-27 07:16:17', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -5309,16 +5358,23 @@ CREATE TABLE `sys_user_role` (
   PRIMARY KEY (`id`),
   KEY `idx_role_id` (`role_id`),
   KEY `idx_admin_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COMMENT='用户角色';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COMMENT='用户角色';
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('7', '9', '11', '2023-07-18 10:59:09', '2023-07-18 10:59:09', '0');
 INSERT INTO `sys_user_role` VALUES ('10', '10', '8', '2023-07-18 11:09:35', '2023-07-18 11:09:35', '0');
-INSERT INTO `sys_user_role` VALUES ('11', '10', '5', '2023-07-18 14:28:42', '2023-07-18 14:28:42', '0');
 INSERT INTO `sys_user_role` VALUES ('12', '32', '6', '2023-07-18 14:33:04', '2023-07-18 14:33:04', '0');
 INSERT INTO `sys_user_role` VALUES ('13', '33', '12', '2023-07-18 14:39:07', '2023-07-18 14:39:07', '0');
+INSERT INTO `sys_user_role` VALUES ('14', '10', '5', '2023-12-26 18:14:40', '2023-12-26 18:14:40', '0');
+INSERT INTO `sys_user_role` VALUES ('15', '36', '5', '2023-12-26 18:14:40', '2023-12-26 18:14:40', '0');
+INSERT INTO `sys_user_role` VALUES ('17', '36', '14', '2023-12-26 19:08:10', '2023-12-26 19:08:10', '0');
+INSERT INTO `sys_user_role` VALUES ('18', '37', '13', '2023-12-26 19:33:43', '2023-12-26 19:33:43', '0');
+INSERT INTO `sys_user_role` VALUES ('21', '9', '1', '2023-12-28 08:25:51', '2023-12-28 08:25:51', '0');
+INSERT INTO `sys_user_role` VALUES ('22', '10', '1', '2023-12-28 08:25:51', '2023-12-28 08:25:51', '0');
+INSERT INTO `sys_user_role` VALUES ('23', '36', '1', '2023-12-28 08:25:51', '2023-12-28 08:25:51', '0');
+INSERT INTO `sys_user_role` VALUES ('24', '37', '1', '2023-12-28 08:25:51', '2023-12-28 08:25:51', '0');
 
 -- ----------------------------
 -- Table structure for user_address

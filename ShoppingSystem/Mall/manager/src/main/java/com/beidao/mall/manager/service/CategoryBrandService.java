@@ -1,8 +1,11 @@
 package com.beidao.mall.manager.service;
 
 import com.beidao.mall.model.dto.product.CategoryBrandDto;
+import com.beidao.mall.model.entity.product.Brand;
 import com.beidao.mall.model.entity.product.CategoryBrand;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface CategoryBrandService {
 
@@ -19,4 +22,7 @@ public interface CategoryBrandService {
 
     // 删除
     void deleteById(Long id);
+
+    //根据分类id查询对应品牌数据
+    List<Brand> findBrandByCategoryId(Long categoryId);
 }

@@ -1,5 +1,7 @@
 package com.beidao.mall.manager.controller;
 
+import com.beidao.mall.common.log.annotation.Log;
+import com.beidao.mall.common.log.enums.OperatorType;
 import com.beidao.mall.manager.service.BrandService;
 import com.beidao.mall.model.entity.product.Brand;
 import com.beidao.mall.model.vo.common.Result;
@@ -25,6 +27,7 @@ public class BrandController {
     }
 
     //品牌列表   page当前页  list每页记录数
+    @Log(title = "品牌管理:列表",businessType = 0,operatorType = OperatorType.MANAGE)
     @GetMapping("/{page}/{limit}")
     public Result list(@PathVariable Integer page,
                        @PathVariable Integer limit){

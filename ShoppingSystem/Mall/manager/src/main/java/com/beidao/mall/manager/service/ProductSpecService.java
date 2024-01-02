@@ -3,6 +3,8 @@ package com.beidao.mall.manager.service;
 import com.beidao.mall.model.entity.product.ProductSpec;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ProductSpecService {
 
 
@@ -18,4 +20,7 @@ public interface ProductSpecService {
 
     //删除
     void deleteById(Long id);
+
+    //加载商品规格数据
+    List<ProductSpec> findAll();
 }

@@ -3,6 +3,7 @@ package com.beidao.mall.manager.service.impl;
 import com.beidao.mall.manager.mapper.CategoryBrandMapper;
 import com.beidao.mall.manager.service.CategoryBrandService;
 import com.beidao.mall.model.dto.product.CategoryBrandDto;
+import com.beidao.mall.model.entity.product.Brand;
 import com.beidao.mall.model.entity.product.CategoryBrand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -49,5 +50,12 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     @Override
     public void deleteById(Long id) {
         categoryBrandMapper.deleteById(id) ;
+    }
+
+
+    //根据分类id查询对应品牌数据
+    @Override
+    public List<Brand> findBrandByCategoryId(Long categoryId) {
+        return categoryBrandMapper.findBrandByCategoryId(categoryId);
     }
 }

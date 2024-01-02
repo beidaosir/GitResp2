@@ -1,5 +1,6 @@
 package com.beidao.mall.manager.controller;
 
+import com.beidao.mall.common.log.annotation.Log;
 import com.beidao.mall.manager.service.SysRoleService;
 import com.beidao.mall.model.dto.system.SysRoleDto;
 import com.beidao.mall.model.entity.system.SysRole;
@@ -43,6 +44,7 @@ public class SysRoleController {
     }
 
     //2.角色添加方法
+    @Log(title = "角色管理:添加",businessType = 1)
     @PostMapping(value = "/saveSysRole")
     public Result saveSysRole(@RequestBody SysRole sysRole){
         sysRoleService.saveSysRole(sysRole);
