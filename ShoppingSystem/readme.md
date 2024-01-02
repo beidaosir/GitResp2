@@ -1,6 +1,6 @@
 ## Go享生活 
 
-Go享生活 购物系统采用的开发模式是前后端分离的开发模式。一个B2C模式的电子商务平台，包含后台管理系统和前台用户系统。项目采用前后端分离开发模式
+Go享生活 购物系统采用的开发模式是前后端分离的开发模式。
 
 
 
@@ -186,5 +186,85 @@ docker run -d -p 6379:6379 --restart=always \
 -v redis-data:/data \
 --name redis redis \
 redis-server /etc/redis/config/redis.conf
+```
+
+```shell
+#进入到redis
+docker exec -it redis redis-cli
+
+#清除
+flushdb
+
+#查看存储
+keys *
+```
+
+
+
+
+
+### Minio准备
+
+官网地址：https://www.minio.org.cn/docs/cn/minio/container/index.html
+
+###### Windows安装
+
+1、下载Minio安装文件
+
+* 地址：https://dl.min.io/server/minio/release/
+
+2、进入到Monio所在目录，启动Minio
+
+* 启动命令： minio.exe  server  数据文件目录(数据文件地址)
+* 访问控制台：localhost:9000
+* 创建bucket并设置minio的中该桶的访问权限为public
+
+
+
+###### Linux安装
+
+具体命令：
+
+```java
+//拉取镜像
+docker pull quay.io/minio/minio
+
+// 创建数据存储目录
+mkdir -p ~/minio/data
+
+// 创建minio
+docker run \
+   -p 9001:9000 \
+   -p 9090:9090 \
+   --name minio \
+   -v ~/minio/data:/data \
+   -e "MINIO_ROOT_USER=admin" \
+   -e "MINIO_ROOT_PASSWORD=admin123456" \
+   -d \
+   quay.io/minio/minio server /data --console-address ":9090"
+```
+
+
+
+###### pom.xml添加依赖
+
+```xml
+<dependency>
+    <groupId>io.minio</groupId>
+    <artifactId>minio</artifactId>
+    <version>8.5.2</version>
+</dependency>
+```
+
+
+
+
+
+### Nacos启动
+
+```
+nacos bin>startup.cmd -m standalone
+http://localhost:8848/nacos                                                                                                                                                                              
+
 ```
 
