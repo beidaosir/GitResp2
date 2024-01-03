@@ -72,7 +72,7 @@
         from sys_user
         <where>
             <if test="keyword != null and keyword != ''">
-                and username like concant('%',#{keyword},'%')
+                and username like concat('%',#{keyword},'%')
             </if>
             <if test="createTimeBegin != null and createTimeBegin != ''">
                 and create_time >= #{createTimeBegin}

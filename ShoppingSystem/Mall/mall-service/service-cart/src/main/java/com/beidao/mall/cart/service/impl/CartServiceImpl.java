@@ -9,8 +9,12 @@ import com.beidao.mall.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -88,6 +92,162 @@ public class CartServiceImpl implements CartService {
 
 
 
+
+    }
+
+
+    //购物车列表
+    @Override
+    public List<CartInfo> getCartList() {
+
+        //1、构建查询的redis里面key值  根据当前userId
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //2、根据key从redis里面获取hash类型获取所有value值 cartInfo
+        List<Object> valueList = redisTemplate.opsForHash().values(cartKey);
+
+        //List<Object>   ---->   List<CartInfo>
+        if (!CollectionUtils.isEmpty(valueList)){
+
+            List<CartInfo> cartInfoList = valueList.stream().map(cartInfoObj->
+                    JSON.parseObject(cartInfoObj.toString(),CartInfo.class))
+                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
+                    .collect(Collectors.toList());
+
+            return cartInfoList;
+        }
+
+        //返回空集合
+        return new ArrayList<>();
+    }
+
+
+    //删除购物车商品
+    @Override
+    public void deleteCart(Long skuId) {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+
+        redisTemplate.opsForHash().delete(cartKey,String.valueOf(skuId));
+
+
+    }
+
+
+    //更新购物车商品选中状态
+    @Override
+    public void checkCart(Long skuId, Integer isChecked) {
+
+        //1、构建查询的redis里面key值  根据当前userId
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //2、判断key是否包含field
+        Boolean hasKey = redisTemplate.opsForHash().hasKey(cartKey,String.valueOf(skuId));
+        if (hasKey) {
+
+            //3、根据key+field把value获取出来
+            String cartInfoString =
+                    redisTemplate.opsForHash().get(cartKey, String.valueOf(skuId)).toString();
+
+            //4、更新value里面的选中状态
+            CartInfo cartInfo = JSON.parseObject(cartInfoString, CartInfo.class);
+            cartInfo.setIsChecked(isChecked);
+
+            //5、放回到redis的hash类型里面
+            redisTemplate.opsForHash().put(cartKey,
+                    String.valueOf(skuId),
+                    JSON.toJSONString(cartInfo));
+
+        }
+    }
+
+
+    //更新购物车商品全部选中状态
+    @Override
+    public void allCheckCart(Integer isChecked) {
+        //1、构建查询的redis里面key值  根据当前userId
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //2、根据key获取购物车中所有value值
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
+
+        if (!CollectionUtils.isEmpty(objectList)){
+
+            List<CartInfo> cartInfoList = objectList.stream().map(object->
+                            JSON.parseObject(object.toString(),CartInfo.class))
+                    .collect(Collectors.toList());
+
+            //3、把每个商品的isChecked值进行更新
+            cartInfoList.forEach(cartInfo -> {
+                cartInfo.setIsChecked(isChecked);
+                redisTemplate.opsForHash().put(cartKey,String.valueOf(cartInfo.getSkuId()),
+                       JSON.toJSONString(cartInfo));
+            });
+
+        }
+
+    }
+
+
+
+    //清空购物车
+    @Override
+    public void clearCart() {
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = getCartKey(userId);
+
+        //delete
+        redisTemplate.delete(cartKey);
+    }
+
+
+    //选中的购物车
+    @Override
+    public List<CartInfo> getAllCkecked() {
+        //获取userId  构建 key
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //根据key获取购物车所有商品
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
+
+
+        if (!CollectionUtils.isEmpty(objectList)) {
+
+            List<CartInfo> cartInfoList = objectList.stream().map(object ->
+                            JSON.parseObject(object.toString(), CartInfo.class))
+                    .filter(cartInfo -> cartInfo.getIsChecked()==1)//选中
+                    .collect(Collectors.toList());
+
+            return cartInfoList;
+        }
+
+            return new ArrayList<>();
+    }
+
+
+
+    //远程调用：删除生成订单的购物车商品
+    @Override
+    public void deleteChecked() {
+
+        //获取userId  构建 key
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //根据key获取redis所有value值
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
+
+        //删除选中商品
+        objectList.stream().map(object ->
+                        JSON.parseObject(object.toString(), CartInfo.class))
+                .filter(cartInfo -> cartInfo.getIsChecked()==1)//选中
+                .forEach(cartInfo -> redisTemplate.opsForHash().delete(cartKey,
+                        String.valueOf(cartInfo.getSkuId())));
 
     }
 }

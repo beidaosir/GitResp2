@@ -312,6 +312,20 @@ const searchSysUser = () => {
     fetchData()
 }
 
+// 重置表单数据方法
+const resetData = () => {
+    // 重置查询条件
+    queryDto.value.keyword = "";
+    createTimes.value = [];
+
+    // 重置表单数据
+    sysUser.value = { ...defaultForm };
+
+    // 触发重新获取数据
+    fetchData()
+};
+
+
 
 </script>
 
