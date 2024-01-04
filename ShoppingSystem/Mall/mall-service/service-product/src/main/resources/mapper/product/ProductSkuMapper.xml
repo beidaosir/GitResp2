@@ -12,6 +12,13 @@
     </sql>
 
 
+<!--   //更新商品sku销量 -->
+    <update id="updateSale" >
+        update product_sku set sale_num = sale_num + #{num}, stock_num = stock_num - #{num}, update_time =  now() where id = #{skuId}
+    </update>
+
+
+
 <!--            //根据商品id获取所有sku列表-->
     <select id="findByProductId" resultMap="productSkuMap">
         select <include refid="columns" />

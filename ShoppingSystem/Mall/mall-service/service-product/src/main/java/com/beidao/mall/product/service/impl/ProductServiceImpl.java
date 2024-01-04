@@ -2,6 +2,7 @@ package com.beidao.mall.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.beidao.mall.model.dto.h5.ProductSkuDto;
+import com.beidao.mall.model.dto.product.SkuSaleDto;
 import com.beidao.mall.model.entity.product.Product;
 import com.beidao.mall.model.entity.product.ProductDetails;
 import com.beidao.mall.model.entity.product.ProductSku;
@@ -14,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -106,5 +108,16 @@ public class ProductServiceImpl implements ProductService {
 
         ProductSku productSku = productSkuMapper.getById(skuId);
         return productSku;
+    }
+
+    //更新商品sku销量
+    @Override
+    public Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList) {
+        if(!CollectionUtils.isEmpty(skuSaleDtoList)) {
+            for(SkuSaleDto skuSaleDto : skuSaleDtoList) {
+                productSkuMapper.updateSale(skuSaleDto.getSkuId(), skuSaleDto.getNum());
+            }
+        }
+        return true;
     }
 }

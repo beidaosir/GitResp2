@@ -1,6 +1,7 @@
 package com.beidao.mall.product.service;
 
 import com.beidao.mall.model.dto.h5.ProductSkuDto;
+import com.beidao.mall.model.dto.product.SkuSaleDto;
 import com.beidao.mall.model.entity.product.ProductSku;
 import com.beidao.mall.model.vo.h5.ProductItemVo;
 import com.github.pagehelper.PageInfo;
@@ -22,4 +23,8 @@ public interface ProductService {
 
    // 根据skuId返回sku信息
     ProductSku getBySkuId(Long skuId);
+
+
+    //更新商品sku销量
+    Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList);
 }
