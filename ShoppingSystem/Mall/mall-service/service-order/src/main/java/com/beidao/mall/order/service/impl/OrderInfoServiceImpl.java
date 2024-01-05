@@ -23,6 +23,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -192,8 +193,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public TradeVo buy(Long skuId) {
         //封装订单项集合
-        List<OrderItem> orderItemList = new ArrayList<>();
+
         ProductSku productSku = productFeignClient.getBySkuId(skuId);
+        List<OrderItem> orderItemList = new ArrayList<>();
 
         OrderItem orderItem = new OrderItem();
         orderItem.setSkuId(skuId);
@@ -204,10 +206,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         orderItemList.add(orderItem);
 
+        BigDecimal totalAmount = productSku.getSalePrice();
         TradeVo tradeVo = new TradeVo();
 
+        tradeVo.setTotalAmount(totalAmount);
         tradeVo.setOrderItemList(orderItemList);
-        tradeVo.setTotalAmount(productSku.getSalePrice());
 
         return tradeVo;
     }
@@ -248,6 +251,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
 
     //更新订单状态
+    @Transactional
     @Override
     public void updateOrderStatus(String orderNo,Integer orderStatus) {
 

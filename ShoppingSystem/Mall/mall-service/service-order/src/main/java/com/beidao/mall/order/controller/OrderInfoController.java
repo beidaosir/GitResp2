@@ -54,10 +54,16 @@ public class OrderInfoController {
 
     @Operation(summary = "立即购买")
     @GetMapping("auth/buy/{skuId}")
-    public Result<TradeVo> buy(@PathVariable Long skuId) {
-        TradeVo tradeVo = orderInfoService.buy(skuId);
+    public Result<TradeVo> buy(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable String skuId) {
+        TradeVo tradeVo;
+        if (skuId == null || skuId.isEmpty() || skuId.equals("NaN")) {
+            tradeVo = orderInfoService.buy(userFeignClient.getByBrowseHistory().getSkuId());
+        } else {
+            tradeVo = orderInfoService.buy(Long.valueOf(skuId));
+        }
         return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
     }
+
 
 
     @Operation(summary = "获取订单分页列表")

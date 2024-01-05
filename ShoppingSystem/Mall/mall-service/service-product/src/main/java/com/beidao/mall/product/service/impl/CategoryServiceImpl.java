@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -53,7 +54,35 @@ public class CategoryServiceImpl implements CategoryService {
 
     //查询所有分类  树形封装
     //category::all
-    @Cacheable(value = "category",key = "'all'")
+    // 查询所有分类，树型
+    @Cacheable(value = "category" , key = "'all'")
+    @Override
+    public List<Category> findCategoryTree() {
+        List<Category> categoryList = categoryMapper.findAll();
+        //查询所有分类，返回list集合
+        List<Category> oneCategoryList = categoryList.stream().
+                filter(item -> item.getParentId().longValue() == 0)
+                .collect(Collectors.toList());
+        //通过条件parentid=0得到所有的一级分类
+        //遍历一级分类的集合，通过id=parentid ，得到下面的二级分类
+        //遍历二级分类的集合，通过id=parentid ，得到下面的三级分类
+        if(!CollectionUtils.isEmpty(oneCategoryList)) {
+            oneCategoryList.forEach(oneCategory -> {
+                List<Category> twoCategoryList = categoryList.stream().filter(item -> item.getParentId().longValue() == oneCategory.getId().longValue()).collect(Collectors.toList());
+                oneCategory.setChildren(twoCategoryList);
+
+                if(!CollectionUtils.isEmpty(twoCategoryList)) {
+                    twoCategoryList.forEach(twoCategory -> {
+                        List<Category> threeCategoryList = categoryList.stream().filter(item -> item.getParentId().longValue() == twoCategory.getId().longValue()).collect(Collectors.toList());
+                        twoCategory.setChildren(threeCategoryList);
+                    });
+                }
+            });
+        }
+        return oneCategoryList;
+    }
+
+   /* @Cacheable(value = "category",key = "'all'")
     @Override
     public List<Category> findCategoryTree() {
 
@@ -90,5 +119,5 @@ public class CategoryServiceImpl implements CategoryService {
 
 
         return oneCategoryList;
-    }
+    }*/
 }

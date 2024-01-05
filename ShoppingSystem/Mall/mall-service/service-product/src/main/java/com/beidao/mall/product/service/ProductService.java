@@ -18,7 +18,7 @@ public interface ProductService {
 
 
     //商品详情
-    ProductItemVo item(Long skuId);
+    ProductItemVo item(String skuId);
 
 
    // 根据skuId返回sku信息

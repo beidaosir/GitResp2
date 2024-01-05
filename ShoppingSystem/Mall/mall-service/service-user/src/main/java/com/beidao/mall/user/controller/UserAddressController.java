@@ -16,7 +16,7 @@ import java.util.List;
 
 @Tag(name = "用户地址接口")
 @RestController
-@RequestMapping(value="/api/user/userAddress")
+@RequestMapping(value="/api/user")
 public class UserAddressController {
 
 
@@ -29,7 +29,7 @@ public class UserAddressController {
 
 
     @Operation(summary = "获取用户地址列表")
-    @GetMapping("auth/findUserAddressList")
+    @GetMapping("userAddress/auth/findUserAddressList")
     public Result findUserAddressList() {
         List<UserAddress> list = userAddressService.findUserAddressList();
         return Result.build(list , ResultCodeEnum.SUCCESS) ;
@@ -66,7 +66,7 @@ public class UserAddressController {
 
 
     //根据id获取收获地址信息
-    @GetMapping("getUserAddress/{id}")
+    @GetMapping("userAddress/getUserAddress/{id}")
     public UserAddress getUserAddress(@PathVariable Long id){
         return userAddressService.getUserAddress(id);
     }

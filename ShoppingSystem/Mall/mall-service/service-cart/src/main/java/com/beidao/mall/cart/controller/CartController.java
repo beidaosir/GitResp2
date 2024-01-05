@@ -2,6 +2,7 @@ package com.beidao.mall.cart.controller;
 
 
 import com.beidao.mall.cart.service.CartService;
+import com.beidao.mall.feign.user.UserFeignClient;
 import com.beidao.mall.model.entity.h5.CartInfo;
 import com.beidao.mall.model.vo.common.Result;
 import com.beidao.mall.model.vo.common.ResultCodeEnum;
@@ -18,6 +19,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private UserFeignClient userFeignClient;
 
 
     @Operation(summary="清空购物车")
@@ -68,10 +72,10 @@ public class CartController {
     //skuNum   商品数量
     @Operation(summary = "添加购物车")
     @GetMapping("auth/addToCart/{skuId}/{skuNum}")
-    public Result addToCart(@PathVariable("skuId") Long skuId,
-                            @PathVariable("skuNum") Integer skuNum){
-
-        cartService.addToCart(skuId, skuNum);
+    public Result addToCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable("skuId") String skuId,
+                            @Parameter(name = "skuNum", description = "数量", required = true) @PathVariable("skuNum") Integer skuNum) {
+        Long id = "undefined".equals(skuId) ? userFeignClient.getByBrowseHistory().getSkuId() : Long.valueOf(skuId);
+        cartService.addToCart(id, skuNum);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
