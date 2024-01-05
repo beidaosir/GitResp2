@@ -6,6 +6,9 @@ import com.beidao.mall.model.vo.common.Result;
 import com.beidao.mall.model.vo.common.ResultCodeEnum;
 import com.beidao.mall.model.vo.h5.UserInfoVo;
 import com.beidao.mall.user.service.UserInfoService;
+import com.beidao.mall.model.entity.user.UserBrowseHistory;
+import com.beidao.mall.model.entity.user.UserCollect;
+import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,77 @@ public class UserInfoController {
     public Result register(@RequestBody UserRegisterDto userRegisterDto) {
         userInfoService.register(userRegisterDto);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
+    }
+
+    @Operation(summary = "新增商品浏览信息")
+    @GetMapping("isCollect/{id}")
+    public Result<UserInfoVo> saveUserCollect(@PathVariable("id") String id) {
+        if ("undefined".equals(id)){
+            return Result.build(false , ResultCodeEnum.SUCCESS) ;
+        }else {
+            //保存商品浏览信息
+            userInfoService.saveUserCollect(Long.valueOf(id));
+            //查询是否收藏
+            Boolean bool = userInfoService.findUserisCollect(Long.valueOf(id));
+
+            return Result.build(bool , ResultCodeEnum.SUCCESS) ;
+        }
+    }
+
+    @Operation(summary = "商品浏览信息分页展示")
+    @GetMapping("auth/findUserBrowseHistoryPage/{page}/{limit}")
+    public Result<UserInfoVo> findUserBrowseHistoryPage(@PathVariable Integer page, @PathVariable Integer limit) {
+        PageInfo<UserCollect> pageInfo = userInfoService.findUserBrowseHistoryPage(page, limit);
+        return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
+    }
+
+    @Operation(summary = "收藏商品分页展示")
+    @GetMapping("auth/findUserCollectPage/{page}/{limit}")
+    public Result<UserInfoVo> findUserCollectPage(@PathVariable Integer page, @PathVariable Integer limit) {
+        PageInfo<UserBrowseHistory> pageInfo = userInfoService.findUserCollectPage(page, limit);
+        return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
+    }
+
+    @Operation(summary = "取消收藏")
+    @GetMapping("auth/cancelCollect/{skuId}")
+    public Result updatecancelCollect(@PathVariable String skuId) {
+        // 参数校验，确保skuId不为空
+        if (skuId == null || skuId.isEmpty() || skuId.equals("undefined")) {
+            // 获取当前浏览量最多的商品并取消收藏
+            userInfoService.updatecancelCollect(userInfoService.getMostFrequentSkuId().getSkuId());
+        } else {
+            long id = skuId.equals("undefined") ? userInfoService.getMostFrequentSkuId().getSkuId() : Long.valueOf(skuId);
+            userInfoService.updatecancelCollect(id);
+        }
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+
+    @Operation(summary = "添加收藏")
+    @GetMapping("/auth/collect/{skuId}")
+    public Result savecollect(@PathVariable String skuId) {
+        // 参数校验，确保skuId不为空
+        if (skuId == null || skuId.isEmpty() || skuId.equals("undefined")) {
+            // 获取当前浏览量最多的商品
+            UserBrowseHistory userBrowseHistory = userInfoService.getMostFrequentSkuId();
+            userInfoService.savecollect(userBrowseHistory.getSkuId());
+        } else {
+            // 使用三元运算符简化代码逻辑
+            long id = skuId.equals("undefined") ? userInfoService.getMostFrequentSkuId().getSkuId() : Long.valueOf(skuId);
+            userInfoService.savecollect(id);
+        }
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+
+    /**
+     * @Description: 远程调用：获取浏览量最多的商品
+     */
+    @Operation(summary = "获取浏览量最多的商品")
+    @GetMapping("auth/BrowseHistory")
+    public UserBrowseHistory getByBrowseHistory() {
+        UserBrowseHistory userBrowseHistory = userInfoService.getMostFrequentSkuId();
+        return userBrowseHistory;
     }
 
 }

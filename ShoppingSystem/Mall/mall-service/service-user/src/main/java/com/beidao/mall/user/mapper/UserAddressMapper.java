@@ -16,4 +16,13 @@ public interface UserAddressMapper {
 
     //根据id获取收获地址信息
     UserAddress getUserAddress(Long id);
+
+
+
+    void updateByid(UserAddress userAddress);
+
+    void save(UserAddress userAddress);
+
+    void removeById(Long id);
+
 }

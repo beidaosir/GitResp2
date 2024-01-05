@@ -33,5 +33,5 @@ public interface OrderInfoService {
 
 
     //更新订单状态
-    void updateOrderStatus(String orderNo);
+    void updateOrderStatus(String orderNo,Integer orderStatus);
 }

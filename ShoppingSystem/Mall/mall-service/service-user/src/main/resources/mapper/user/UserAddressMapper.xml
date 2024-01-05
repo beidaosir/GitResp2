@@ -30,5 +30,88 @@
     </select>
 
 
+    <update id="removeById" parameterType="Long">
+        update user_address set update_time = now(),
+                                is_deleted = 1
+        where id = #{id}
+    </update>
+
+
+    <update id="updateByid" parameterType="com.beidao.mall.model.entity.user.UserAddress">
+        UPDATE user_address
+        <set>
+            <!-- 使用动态SQL判断字段是否为空，如果不为空则进行更新 -->
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="tagName != null">
+                tag_name = #{tagName},
+            </if>
+            <if test="provinceCode != null">
+                province_code = #{provinceCode},
+            </if>
+            <if test="cityCode != null">
+                city_code = #{cityCode},
+            </if>
+            <if test="districtCode != null">
+                district_code = #{districtCode},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="fullAddress != null">
+                full_address = #{fullAddress},
+            </if>
+            <if test="isDefault != null">
+                is_default = #{isDefault},
+            </if>
+            update_time = now()
+        </set>
+        WHERE user_id = #{userId} and id = #{id}
+    </update>
+
+
+    <insert id="save" parameterType="com.beidao.mall.model.entity.user.UserAddress">
+        insert into user_address
+        (
+            user_id,
+            name,
+            phone,
+            tag_name,
+            province_code,
+            city_code,
+            district_code,
+            address,
+            full_address,
+            is_default,
+            create_time,
+            update_time,
+            is_deleted
+        )
+        values
+            (
+                #{userId},
+                #{name},
+                #{phone},
+                #{tagName},
+                #{provinceCode},
+                #{cityCode},
+                #{districtCode},
+                #{address},
+                #{fullAddress},
+                #{isDefault},
+                now(),
+                now(),
+                0
+            )
+    </insert>
+
+
+
+
+
 
 </mapper>

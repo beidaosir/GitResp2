@@ -119,8 +119,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         //4、添加数据到orderInfo表
         //封装orderInfo对象
         //远程调用：获取用户收获地址
-        OrderInfo orderInfo = new OrderInfo();
         UserInfo userInfo = AuthContextUtil.getUserInfo();
+        OrderInfo orderInfo = new OrderInfo();
+
 
         //订单编号
         orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));
@@ -130,7 +131,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderInfo.setNickName(userInfo.getNickName());
 
         //封装用户收货地址信息
-        Long userAddressId = orderInfoDto.getUserAddressId();
+        //Long userAddressId = orderInfoDto.getUserAddressId();
         // 远程调用：根据收获地址id  获取用户收获地址
         //UserAddress userAddress = null;
         UserAddress userAddress = userFeignClient.getUserAddress(orderInfoDto.getUserAddressId());
@@ -248,15 +249,22 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     //更新订单状态
     @Override
-    public void updateOrderStatus(String orderNo) {
+    public void updateOrderStatus(String orderNo,Integer orderStatus) {
 
         OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
 
         orderInfo.setOrderStatus(1);
+        orderInfo.setPayType(orderStatus);
         orderInfo.setPaymentTime(new Date());
-        orderInfo.setPayType(2);
 
         orderInfoMapper.updateById(orderInfo);
+
+        //记录日志
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderId(orderInfo.getId());
+        orderLog.setProcessStatus(1);
+        orderLog.setNote("支付宝支付成功");
+        orderLogMapper.save(orderLog);
 
     }
 }
