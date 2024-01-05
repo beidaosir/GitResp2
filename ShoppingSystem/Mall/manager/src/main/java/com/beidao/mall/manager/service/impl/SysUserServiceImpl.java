@@ -188,7 +188,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     //用户分配角色
     @Log(title = "用户分配角色",businessType = 0)
-    @Transactional
+
     @Override
     public void doAssign(AssginRoleDto assginRoleDto) {
 

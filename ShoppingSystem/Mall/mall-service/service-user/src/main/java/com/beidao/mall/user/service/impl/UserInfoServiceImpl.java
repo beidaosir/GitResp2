@@ -224,7 +224,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     //取消收藏
-    @Transactional
+
     @Override
     public void updatecancelCollect(Long skuId) {
         UserInfo userInfo = AuthContextUtil.getUserInfo();
@@ -234,7 +234,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     //添加收藏
     @Override
-    @Transactional
     public void savecollect(Long skuId) {
         UserInfo userInfo = AuthContextUtil.getUserInfo();
         if (userInfo != null) {

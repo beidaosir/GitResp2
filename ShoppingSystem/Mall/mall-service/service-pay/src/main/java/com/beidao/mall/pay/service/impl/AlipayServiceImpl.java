@@ -30,7 +30,7 @@ public class AlipayServiceImpl implements AlipayService {
     private PaymentInfoService paymentInfoService;
 
     @Autowired
-    private AlipayProperties alipayProperties ;
+    private AlipayProperties alipayProperties;
 
     @SneakyThrows  // lombok的注解，对外声明异常
     @Override
@@ -50,25 +50,42 @@ public class AlipayServiceImpl implements AlipayService {
 
         // 准备请求参数 ，声明一个map 集合
         HashMap<String, Object> map = new HashMap<>();
-        map.put("out_trade_no",paymentInfo.getOrderNo());
-        map.put("product_code","QUICK_WAP_WAY");
-        map.put("total_amount",paymentInfo.getAmount());
+        map.put("out_trade_no", paymentInfo.getOrderNo());
+        map.put("product_code", "QUICK_WAP_WAY");
+        map.put("total_amount", paymentInfo.getAmount());
         //map.put("total_amount",new BigDecimal("0.01"));
-        map.put("subject",paymentInfo.getContent());
+        map.put("subject", paymentInfo.getContent());
         alipayRequest.setBizContent(JSON.toJSONString(map));
 
         // 发送请求
-        AlipayTradeWapPayResponse response = alipayClient.pageExecute(alipayRequest);
+        try {
+            AlipayTradeWapPayResponse response = alipayClient.pageExecute(alipayRequest);
+
+            if (response.isSuccess()){
+
+                String form = response.getBody();
+                return form;
+            }else {
+                throw new BeidaoException(ResultCodeEnum.DATA_ERROR);
+            }
+
+        } catch (AlipayApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+      /*  AlipayTradeWapPayResponse response = alipayClient.pageExecute(alipayRequest);
         if(response.isSuccess()){
             log.info("调用成功");
             return response.getBody();
         } else {
             log.info("调用失败");
             throw new BeidaoException(ResultCodeEnum.DATA_ERROR);
-        }
-    }
+        }*/
 
-}
+
+
 
 
 

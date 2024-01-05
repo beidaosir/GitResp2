@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 
 
-@Service
+/*@Service
 public class PaymentInfoServiceImpl implements PaymentInfoService {
 
     @Autowired
@@ -27,9 +27,9 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
     private OrderFeignClient orderFeignClient ;
 
     @Autowired
-    private ProductFeignClient productFeignClient ;
+    private ProductFeignClient productFeignClient ;*/
 
-    @Override
+   /* @Override
     public PaymentInfo savePaymentInfo(String orderNo) {
 
         // 根据订单号查询支付信息数据，如果已经已经存在了就不用进行保存(一个订单支付失败以后可以继续支付)
@@ -54,7 +54,59 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
             paymentInfoMapper.save(paymentInfo);
         }
         return paymentInfo;
+    }*/
+
+/*
+    @Override
+    public PaymentInfo savePaymentInfo(String orderNo) {
+        // 根据订单号查询支付信息数据，如果已经已经存在了就不用进行保存(一个订单支付失败以后可以继续支付)
+        PaymentInfo paymentInfo = paymentInfoMapper.getByOrderNo(orderNo);
+
+        // 判断支付记录是否存在
+        if (paymentInfo == null) {
+            // 远程调用获取订单信息
+            OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(orderNo).getData();
+
+            // 检查 orderInfo 是否为 null
+            if (orderInfo == null) {
+                // 添加日志
+                System.out.println("Failed to retrieve order information for orderNo: " + orderNo);
+                throw new RuntimeException("Failed to retrieve order information for orderNo: " + orderNo);
+            }
+
+            // 把orderinfo获取数据封装到paymentInfo里面
+            paymentInfo = new PaymentInfo();
+            paymentInfo.setUserId(orderInfo.getUserId());
+            paymentInfo.setPayType(orderInfo.getPayType());
+
+            // 判断订单项列表是否为 null
+            if (orderInfo.getOrderItemList() != null) {
+                String content = "";
+                for (OrderItem item : orderInfo.getOrderItemList()) {
+                    content += item.getSkuName() + " ";
+                }
+                paymentInfo.setContent(content);
+            }
+
+            paymentInfo.setAmount(orderInfo.getTotalAmount());
+            paymentInfo.setOrderNo(orderNo);
+            paymentInfo.setPaymentStatus(0);
+
+            // 判断 paymentInfoMapper 是否为 null
+            if (paymentInfoMapper != null) {
+                // 添加
+                paymentInfoMapper.save(paymentInfo);
+            } else {
+                // 添加日志
+                System.out.println("PaymentInfoMapper is not initialized");
+                throw new RuntimeException("PaymentInfoMapper is not initialized");
+            }
+        }
+
+        return paymentInfo;
     }
+
+
 
     @Override
     public void updatePaymentStatus(Map<String, String> map ,Integer payType) {
@@ -88,9 +140,8 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
     }
 
 
-}
+}*/
 
-/*
 @Service
 public class PaymentInfoServiceImpl implements PaymentInfoService {
 
@@ -116,7 +167,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
         //在service-order模块创建接口：根据订单编号返回订单信息
         if (paymentInfo==null){
             //远程调用：根据订单编号获取订单信息---》完成添加
-            OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(orderNo).getData();
+            OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(orderNo);
             //把orderInfo获取数据封装到paymentInfo里面
             paymentInfo = new PaymentInfo();
 
@@ -165,7 +216,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
         //更新sku
         // 4、更新商品销量
-        OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(paymentInfo.getOrderNo()).getData();
+        OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(paymentInfo.getOrderNo());
         List<SkuSaleDto> skuSaleDtoList = orderInfo.getOrderItemList().stream().map(item -> {
             SkuSaleDto skuSaleDto = new SkuSaleDto();
             skuSaleDto.setSkuId(item.getSkuId());
@@ -176,4 +227,3 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
     }
 }
-*/

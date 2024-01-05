@@ -251,7 +251,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
 
     //更新订单状态
-    @Transactional
+
     @Override
     public void updateOrderStatus(String orderNo,Integer orderStatus) {
 

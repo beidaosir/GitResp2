@@ -30,6 +30,8 @@
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
         </dependency>
+
+
         <dependency>
             <groupId>com.beidao</groupId>
             <artifactId>service-product-client</artifactId>
